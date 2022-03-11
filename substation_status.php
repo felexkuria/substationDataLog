@@ -12,7 +12,7 @@ if (isset($_POST["status"])){
   $result=mysqli_query($conn,$sql);
   if($result){
  $_SESSION["kplcStatus"]  = $kplcPowerStatus;
-      echo "Status Submitted Successfully";
+      echo "<p class=' alert alert-success'>Data Submitted Successfully</p>";
 
   }else{
       echo "Status Not Submitted ";

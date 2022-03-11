@@ -1,32 +1,40 @@
-
-
 <?php
 include "header.php";
 include "config.php";
-if (isset($_POST["submit"])){
-   $date_arrival=$_POST['date_arrival'];
-    $staffName = $_SESSION["staffName"];
-    $visitor_name=$_POST['visitor_name'];
-    $designation=$_POST["designation"];
-    $department=$_POST["department"];
-    $no_of_people=$_POST["no_of_people"];
-    $purpose_of_visiting=$_POST["purpose_of_visiting"];
-    $date_departure=$_POST["date_departure"];
+$visitor_id=$_SESSION["visitor_id"];
 
-    $sql="INSERT INTO `visitors_register`( `time_arrival`, `time_departure`, `visitors_name`, `no_of_people`, `department`, `designation`, `purpose_of_visiting`, `approved_by`)
- VALUES ('$date_arrival','$date_departure','$visitor_name','$no_of_people','$department','$designation','$purpose_of_visiting','$staffName')";
-    $result=mysqli_query($conn,$sql);
+$visitor_name=$_SESSION["visitor_name"];
+$designation=$_SESSION["designation"];
+$department=$_SESSION["department"];
+$no_of_people=$_SESSION["no_of_people"];
+$purpose_of_visiting=$_SESSION["purpose_of_visiting"];
+if (isset($_POST['update']) and !empty($visitor_id)){
+    $up_date_arrival=$_POST['date_arrival'];
+    $up_staffName = $_SESSION["staffName"];
+    $up_visitor_name=$_POST['visitor_name'];
+    $up_designation=$_POST["designation"];
+    $up_department=$_POST["department"];
+    $up_no_of_people=$_POST["no_of_people"];
+    $up_purpose_of_visiting=$_POST["purpose_of_visiting"];
+    $up_date_departure=$_POST["date_departure"];
+    $up_sql="UPDATE `visitors_register` SET `time_arrival`='$up_date_arrival',`time_departure`='$up_date_departure',`visitors_name`='$up_visitor_name',`no_of_people`='$up_no_of_people',`department`='$up_date_departure',`designation`='$up_designation',`purpose_of_visiting`='$up_purpose_of_visiting' WHERE id=$visitor_id";
+    $result = mysqli_query($conn,$up_sql);
     if ($result){
-        echo "<p class=' alert alert-success'>Data Submitted Successfully</p>";
+         echo "you updated the record";
+
+    }else{
+         echo "error updating record";
+
     }
 
+}else{
+    echo"error";
 }
-//drop dropdown for cabinet N1-N9
-//create dropdown for the cabinet
-//convert to kwh and kvarh
-//store data in daily log
-// input person on duty using sessions
-mysqli_close($conn);
+
+
+
+
+
 ?>
     <div class="container-fluid">
     <div class="row">
@@ -35,16 +43,15 @@ mysqli_close($conn);
         </div>
         <div class="col-3">
             <!--            Data Entry done here-->
-
             <div class="card bg-light">
                 <div class="card-header">
                     <img class="img-fluid" src="./assets/logo.png" width="30" height="30" alt="" srcset="">
-                    <h5 class="fw-bold d-inline">Visitors Registration</h5>
+                    <h5 class="fw-bold d-inline"> Meter Readings</h5>
 
 
                 </div>
                 <div class="card-body">
-                    <form action="addVisitors.php" method="post">
+                    <form action="update_visitors.php" method="post">
                         <div class="row">
                             <div class="col-6">
                                 <div class="mb-4">
@@ -58,7 +65,7 @@ mysqli_close($conn);
                             <div class="col-6">
                                 <div class="mb-4">
                                     <label for="" class="form-label fw-bold">Enter Visitor Name</label>
-                                    <input type="text" required class="form-control rounded-pill" name="visitor_name" id="" aria-describedby="helpId" placeholder="eg. Felex Kuria">
+                                    <input value="<?php echo $visitor_name;?>" type="text" required class="form-control rounded-pill" name="visitor_name" id="" aria-describedby="helpId" placeholder="eg. Felex Kuria">
                                 </div>
                             </div>
                         </div>
@@ -66,13 +73,13 @@ mysqli_close($conn);
                             <div class="col-6">
                                 <div class="mb-4">
                                     <label for="" class="form-label fw-bold">Enter Designation</label>
-                                    <input type="text" required class="form-control rounded-pill" name="designation" id="" aria-describedby="helpId" placeholder="eg. Engineer">
+                                    <input value="<?php echo  $designation;?>" type="text" required class="form-control rounded-pill" name="designation" id="" aria-describedby="helpId" placeholder="eg. Engineer">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-4">
                                     <label for="" class="form-label fw-bold"> Department</label>
-                                    <input type="text" required class="form-control rounded-pill" name="department" id="" aria-describedby="helpId" placeholder="eg. Transport or KPLC">
+                                    <input value="<?php echo $department;?>" type="text" required class="form-control rounded-pill" name="department" id="" aria-describedby="helpId" placeholder="eg. Transport or KPLC">
                                 </div>
                             </div>
                         </div>
@@ -82,13 +89,13 @@ mysqli_close($conn);
                             <div class="col-6">
                                 <div class="mb-4">
                                     <label for="" class="form-label fw-bold "> No Of People Visiting</label>
-                                    <input type="number" required class="form-control rounded-pill" name="no_of_people" id="" aria-describedby="helpId" placeholder="eg.3">
+                                    <input value="<?php echo $no_of_people;?>" type="number" required class="form-control rounded-pill" name="no_of_people" id="" aria-describedby="helpId" placeholder="eg.3">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-4">
                                     <label for="" class="form-label fw-bold ">Purpose of visiting</label>
-                                    <input type="text" required class="form-control rounded-pill" name="purpose_of_visiting" id="" aria-describedby="helpId" placeholder="eg.Quarter Inspection">
+                                    <input value="<?php echo $purpose_of_visiting; ?>" type="text" required class="form-control rounded-pill" name="purpose_of_visiting" id="" aria-describedby="helpId" placeholder="eg.Quarter Inspection">
                                 </div>
                             </div>
                         </div>
@@ -103,10 +110,9 @@ mysqli_close($conn);
 
                         </div>
                         <div class="mb-4">
-                            <input value="Submit" type="submit" class="form-control rounded-pill btn btn-primary fw-bold" name="submit" id="" aria-describedby="helpId" placeholder="eg. 1619.23">
+                            <input value="Update" type="submit" class="form-control rounded-pill btn btn-primary fw-bold" name="update" id="" aria-describedby="helpId" placeholder="eg. 1619.23">
 
                         </div>
-
 
                     </form>
                 </div>
@@ -164,8 +170,6 @@ mysqli_close($conn);
                         echo "<td>".$row['approved_by']."</td>";
 
                         $_SESSION["visitor_id"]=$row['id'];
-                        $_SESSION['arrival_time']=$row['time_arrival'];
-                        $_SESSION['departure_time']=$row['time_departure'];
                         $_SESSION["visitor_name"]=$row["visitors_name"];
                         $_SESSION["designation"]=$row["designation"];
                         $_SESSION["department"]=$row["department"];
@@ -210,7 +214,9 @@ mysqli_close($conn);
             }
             mysqli_close($conn);
             ?>
+
         </div>
 
     </div>
+
 <?php include "footer.php" ?>

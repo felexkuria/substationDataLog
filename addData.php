@@ -10,6 +10,10 @@ if (isset($_POST["calculate"])){
 //    echo $reading_kvarh.$reading_kwh.$cabinet_no.$date.$attendant_name;
     $sql="INSERT INTO `dailylog`( `attendantName`, `date`, `cabinetId`, `readings_kwh`, `readings_kvarh`) VALUES ('$attendant_name','$date','$cabinet_no','$reading_kwh','$reading_kvarh')";
    $result=mysqli_query($conn,$sql);
+   if ($result){
+       echo "<p class=' alert alert-success'>Data Submitted Successfully</p>";
+
+   }
 
 }
 //drop dropdown for cabinet N1-N9

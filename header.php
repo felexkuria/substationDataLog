@@ -44,12 +44,12 @@ $date=$_SESSION["date"];
                     <span><i class=" fa fa-home"></i></span> Substations <span> <i class=" fas fa-angle-down"></i></span>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<!--                    <a class="dropdown-item text-black-50" href="#">Athi River</a>-->
-<!---->
-<!--                    <a class="dropdown-item text-black-50" href="#">Paranai</a>-->
-<!--                    <a class="dropdown-item text-black-50" href="#">Simba</a>-->
-<!--                    <a class="dropdown-item text-black-50" href="#">Voi</a>-->
-<!--                    <a class="dropdown-item text-black-50" href="#">Mombasa West</a>-->
+                    <a class="dropdown-item text-black-50" href="#">Athi River</a>
+
+                    <a class="dropdown-item text-black-50" href="#">Paranai</a>
+                    <a class="dropdown-item text-black-50" href="#">Simba</a>
+                    <a class="dropdown-item text-black-50" href="#">Voi</a>
+                    <a class="dropdown-item text-black-50" href="#">Mombasa West</a>
                     <a class="dropdown-item text-black-50" href="addData.php">Mackinnon Road</a>
 
 
